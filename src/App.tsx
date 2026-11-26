@@ -180,12 +180,12 @@ function Footer() {
 
 function FloatingContact() {
   const { pathname } = useLocation()
-  const [visible, setVisible] = useState(pathname !== '/')
+  const [visible, setVisible] = useState(pathname !== '/' && pathname !== '/academy')
 
   useEffect(() => {
     const updateVisibility = () => {
       const poster = document.querySelector('.home-poster')
-      setVisible(pathname !== '/' || !poster || window.scrollY > poster.getBoundingClientRect().height)
+      setVisible(pathname !== '/academy' && (pathname !== '/' || !poster || window.scrollY > poster.getBoundingClientRect().height))
     }
     updateVisibility()
     window.addEventListener('scroll', updateVisibility, { passive: true })
@@ -256,15 +256,16 @@ function Academy() {
   return (
     <>
       <PageBanner eyebrow="PROVIX BADMINTON ACADEMY" title="Develop Your Game. Elevate Your Performance." copy="Professional badminton coaching designed to build skills, confidence and performance." image={images.badminton} />
-      <section className="section academy-intro"><div><p className="eyebrow">COACHING PROGRAMMES</p><h2>Training with direction.</h2></div><div><p>Structured coaching for players at every stage, from first steps on court to advanced performance development.</p><WhatsAppButton message="Hello PROVIX, I am interested in your badminton academy. Could you please share more information?" label="Enquire About Coaching" /></div></section>
+      <section className="section academy-intro"><div><p className="eyebrow">COACHING PROGRAMMES</p><h2>Training with direction.</h2></div><div><p>Choose a programme that fits your age, experience and goals. Each pathway is built around developing your game through badminton.</p></div></section>
       <section className="programmes">
         {siteConfig.academyPrograms.map((program, i) => (
           <article className={i === 4 ? 'personal' : ''} key={program.name}>
-            <span>0{i + 1}</span><h3>{program.name}</h3><p>{program.text}</p>
-            <WhatsAppButton message={`Hello PROVIX, I am interested in your ${program.name} programme. Could you please share more information?`} label={`Enquire — ${program.name}`} />
+            <div className="program-image"><img src={program.image} alt={program.imageAlt} loading="lazy" /><span>0{i + 1}</span></div>
+            <div className="program-copy"><p className="eyebrow">BADMINTON PROGRAMME</p><h3>{program.name}</h3><p>{program.text}</p></div>
           </article>
         ))}
       </section>
+      <section className="academy-enquiry"><div><p className="eyebrow">YOUR NEXT STEP</p><h2>Find the right programme for you.</h2><p>Tell us what you’re looking for and the PROVIX team can help you choose a coaching pathway.</p></div><WhatsAppButton message="Hello PROVIX, I am interested in badminton coaching. Could you help me choose the right programme?" label="Enquire About Coaching" /></section>
       <section className="section faq"><div><p className="eyebrow">ACADEMY FAQ</p><h2>Questions, answered.</h2></div><div className="faq-list">{faqs.map(([q, a], i) => <article key={q}><button onClick={() => setFaq(faq === i ? null : i)} aria-expanded={faq === i}><span>{q}</span><b>{faq === i ? '−' : '+'}</b></button>{faq === i && <p>{a}</p>}</article>)}</div></section>
     </>
   )
@@ -272,29 +273,25 @@ function Academy() {
 
 function Retail() {
   const [slide, setSlide] = useState(0)
-  const slides = [
-    [images.cricket, 'Everything Cricket', 'Equipment for players and teams'],
-    [images.sport, 'Build Your Advantage', 'Premium sports essentials'],
-    [images.badminton, 'Play Your Best', 'Badminton equipment and accessories'],
-  ]
+  const slides = siteConfig.retailCategories
   useEffect(() => {
     const timer = window.setInterval(() => setSlide(s => (s + 1) % slides.length), 5000)
     return () => window.clearInterval(timer)
   }, [slides.length])
 
-  const categories = ['Cricket Bats', 'Batting Pads', 'Batting Gloves', 'Cricket Helmets', 'Cricket Shoes', 'Cricket Bags', 'Cricket Balls', 'Wicket-Keeper Gear', 'Protective Gear', 'Training Accessories', 'Cricket Essentials']
+  const categories = ['Cricket bats and pads', 'Batting gloves and helmets', 'Protective gear and cricket shoes', 'Bags, balls and wicket-keeping equipment', 'Training accessories and cricket essentials', 'Equipment enquiries for players and teams']
   return (
     <>
-      <PageBanner eyebrow="ONE+ SPORTS" title="Your Game. Your Gear. Your Advantage." copy="Quality sports equipment and accessories, serving athletes across the UAE and GCC." image={images.cricket} />
+      <PageBanner eyebrow="ONE+ SPORTS" title="Your Game. Your Gear. Your Advantage." copy="Quality sports equipment and accessories for players across the UAE and GCC." image={images.team} />
       <section className="carousel" aria-label="Promotional offers">
-        {slides.map(([image, title, copy], i) => <article key={title} className={slide === i ? 'slide active' : 'slide'} style={{ backgroundImage: `linear-gradient(90deg, rgba(6,20,43,.85), rgba(6,20,43,.05)), url(${image})` }}><div><p>FEATURED COLLECTION</p><h2>{title}</h2><span>{copy}</span><WhatsAppButton message={`Hello ONE+ SPORTS, I would like to enquire about ${title}.`} label="Enquire Now" /></div></article>)}
+        {slides.map((category, i) => <article key={category.name} className={slide === i ? 'slide active' : 'slide'} style={{ backgroundImage: `linear-gradient(90deg, rgba(6,20,43,.85), rgba(6,20,43,.05)), url(${category.image})` }} aria-hidden={slide !== i} inert={slide !== i}><div><p>ONE+ SPORTS · {category.name.toUpperCase()}</p><h2>{category.name}, ready for play.</h2><span>{category.text}</span><WhatsAppButton message={`Hello ONE+ SPORTS, I would like to enquire about ${category.name} equipment.`} label={`Ask about ${category.name}`} /></div></article>)}
         <button className="carousel-arrow prev" onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous slide"><ChevronLeft /></button>
         <button className="carousel-arrow next" onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next slide"><ChevronRight /></button>
         <div className="dots">{slides.map((_, i) => <button key={i} onClick={() => setSlide(i)} className={slide === i ? 'active' : ''} aria-label={`Go to slide ${i + 1}`} />)}</div>
       </section>
-      <section className="section cricket"><p className="eyebrow">CRICKET · THE ONE+ ADVANTAGE</p><h2>Everything Cricket.<br />All Under One Roof.</h2><div className="category-grid">{categories.map((category, i) => <article key={category}><span>{String(i + 1).padStart(2, '0')}</span><h3>{category}</h3><ArrowRight size={18} /></article>)}</div></section>
+      <section className="section sports-range"><div className="sports-range-heading"><div><p className="eyebrow">SHOP BY SPORT</p><h2>One store. Every kind of game.</h2></div><p>Explore the sports you love and find equipment suited to your next match, training session or game day.</p></div><div className="sport-grid">{siteConfig.retailCategories.map((category, i) => <article className="sport-card" key={category.name}><div className="sport-photo"><img src={category.image} alt={category.imageAlt} loading="lazy" /><span>0{i + 1}</span></div><div className="sport-caption"><h3>{category.name}</h3><p>{category.text}</p></div></article>)}</div><div className="sports-range-cta"><WhatsAppButton message="Hello ONE+ SPORTS, I am interested in sports equipment. Could you help me find the right collection?" label="Enquire About Equipment" /></div></section>
+      <section className="section cricket"><p className="eyebrow">CRICKET EQUIPMENT · ONE+ SPORTS</p><h2>Cricket essentials.</h2><p className="cricket-copy">Browse key equipment categories for players, teams and cricket enthusiasts.</p><div className="category-grid">{categories.map((category, i) => <article key={category}><span>{String(i + 1).padStart(2, '0')}</span><h3>{category}</h3><ArrowRight size={18} /></article>)}</div></section>
       <section className="brand-section"><p className="eyebrow">BRANDS THAT POWER YOUR GAME</p><h2>Leading sports names.</h2><p>Brand selection available through ONE+ SPORTS. Specific availability can be confirmed with our team.</p><div className="brand-placeholder"><span>CRICKET</span><span>BADMINTON</span><span>PADEL</span><span>TENNIS</span><span>SQUASH</span></div></section>
-      <section className="section other-sports"><p className="eyebrow">EXPLORE MORE</p><h2>More sports. More possibility.</h2><div className="sport-grid">{['Badminton', 'Padel', 'Tennis', 'Squash'].map((sport, i) => <article key={sport}><img src={[images.badminton, images.court, images.team, images.sport][i]} alt={`${sport} equipment`} /><div><h3>{sport}</h3><WhatsAppButton message={`Hello ONE+ SPORTS, I am interested in ${sport} equipment.`} label="Enquire" /></div></article>)}</div></section>
       <section className="shipping"><div><p className="eyebrow">UAE & GCC SHIPPING</p><h2>Serving sports enthusiasts across the region.</h2></div><div><p>Contact our team for UAE service, GCC shipping enquiries, product recommendations and bulk orders.</p><WhatsAppButton message="Hello ONE+ SPORTS, I would like to enquire about product availability and shipping." /></div></section>
       <section className="section store"><div><p className="eyebrow">VISIT OUR STORE</p><h2>ONE+ SPORTS<br />Ras Al Khaimah</h2><p>{siteConfig.storeAddress}</p><div className="button-row"><a className="button button-primary" href="https://maps.google.com/?q=Ras+Al+Khaimah+United+Arab+Emirates" target="_blank" rel="noreferrer">Get Directions</a><WhatsAppButton message="Hello ONE+ SPORTS, I would like to visit your store." /></div></div><div className="map-placeholder"><span>MAP</span><p>Ras Al Khaimah, UAE</p></div></section>
     </>
