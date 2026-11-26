@@ -7,10 +7,8 @@ import './App.css'
 
 const images = {
   badminton: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=1800&q=85',
-  cricket: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1800&q=85',
   sport: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1800&q=85',
   team: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=85',
-  court: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1800&q=85',
 }
 
 function PageEffects() {
@@ -37,34 +35,73 @@ function PageEffects() {
 const homeSlides = [
   {
     label: 'PROVIX BADMINTON ACADEMY',
-    title: <>Find your<br /><em>next level.</em></>,
-    copy: 'Thoughtful coaching for every stage of your badminton journey.',
-    image: images.badminton,
-    alt: 'Badminton court ready for training',
+    title: <>Train with<br /><em>purpose.</em></>,
+    copy: 'Expert-led badminton coaching for every stage of your game.',
+    image: siteConfig.retailCategories[0].image,
+    alt: siteConfig.retailCategories[0].imageAlt,
+    imagePosition: siteConfig.retailCategories[0].imagePosition,
     primary: 'Explore the Academy',
     route: '/academy',
     secondary: 'Meet PROVIX',
     secondaryRoute: '/about',
   },
   {
-    label: 'ONE+ SPORTS · THE RETAIL PARTNER',
-    title: <>Gear up for<br /><em>what moves you.</em></>,
-    copy: 'Discover sports equipment and essentials for your game.',
-    image: images.cricket,
-    alt: 'Cricket match in progress',
-    primary: 'Explore ONE+ SPORTS',
+    label: 'ONE+ SPORTS · PADEL',
+    title: <>Find your<br /><em>court.</em></>,
+    copy: siteConfig.retailCategories[1].text,
+    image: siteConfig.retailCategories[1].image,
+    alt: siteConfig.retailCategories[1].imageAlt,
+    imagePosition: siteConfig.retailCategories[1].imagePosition,
+    primary: 'Explore Padel',
     route: '/retail',
-    secondary: 'Browse sports',
-    secondaryRoute: '/retail',
+    secondary: 'Talk to our team',
+    secondaryRoute: '/contact',
   },
   {
-    label: 'SPORT · DEVELOPMENT · EXCELLENCE',
-    title: <>Driven by sport.<br /><em>Built for more.</em></>,
-    copy: 'A UAE sports company bringing coaching and retail together.',
-    image: images.team,
-    alt: 'Athletes training outdoors',
-    primary: 'Discover PROVIX',
-    route: '/about',
+    label: 'ONE+ SPORTS · SQUASH',
+    title: <>Own every<br /><em>corner.</em></>,
+    copy: siteConfig.retailCategories[2].text,
+    image: siteConfig.retailCategories[2].image,
+    alt: siteConfig.retailCategories[2].imageAlt,
+    imagePosition: siteConfig.retailCategories[2].imagePosition,
+    primary: 'Explore Squash',
+    route: '/retail',
+    secondary: 'Talk to our team',
+    secondaryRoute: '/contact',
+  },
+  {
+    label: 'ONE+ SPORTS · CRICKET',
+    title: <>Ready for<br /><em>the moment.</em></>,
+    copy: siteConfig.retailCategories[3].text,
+    image: siteConfig.retailCategories[3].image,
+    alt: siteConfig.retailCategories[3].imageAlt,
+    imagePosition: siteConfig.retailCategories[3].imagePosition,
+    primary: 'Explore Cricket',
+    route: '/retail',
+    secondary: 'Talk to our team',
+    secondaryRoute: '/contact',
+  },
+  {
+    label: 'ONE+ SPORTS · BASKETBALL',
+    title: <>Play above<br /><em>the ordinary.</em></>,
+    copy: siteConfig.retailCategories[4].text,
+    image: siteConfig.retailCategories[4].image,
+    alt: siteConfig.retailCategories[4].imageAlt,
+    imagePosition: siteConfig.retailCategories[4].imagePosition,
+    primary: 'Explore Basketball',
+    route: '/retail',
+    secondary: 'Talk to our team',
+    secondaryRoute: '/contact',
+  },
+  {
+    label: 'ONE+ SPORTS · PICKLEBALL',
+    title: <>Meet your<br /><em>next rally.</em></>,
+    copy: siteConfig.retailCategories[5].text,
+    image: siteConfig.retailCategories[5].image,
+    alt: siteConfig.retailCategories[5].imageAlt,
+    imagePosition: siteConfig.retailCategories[5].imagePosition,
+    primary: 'Explore Pickleball',
+    route: '/retail',
     secondary: 'Talk to our team',
     secondaryRoute: '/contact',
   },
@@ -98,10 +135,10 @@ function HomePoster() {
         <div
           key={slide.label}
           className={`poster-slide${active === index ? ' active' : ''}`}
-          style={{ backgroundImage: `linear-gradient(90deg, rgba(5,18,42,.96) 0%, rgba(5,18,42,.76) 44%, rgba(5,18,42,.16) 100%), url(${slide.image})` }}
           aria-hidden={active !== index}
           inert={active !== index}
         >
+          <img className="poster-photo" src={slide.image} alt={slide.alt} loading="eager" style={{ objectPosition: slide.imagePosition }} />
           <div className="poster-content">
             <div className="poster-kicker"><span className="live-dot" />{slide.label}</div>
             <h1>{slide.title}</h1>
@@ -319,19 +356,38 @@ function Retail() {
     return () => window.clearInterval(timer)
   }, [slides.length])
 
-  const categories = ['Cricket bats and pads', 'Batting gloves and helmets', 'Protective gear and cricket shoes', 'Bags, balls and wicket-keeping equipment', 'Training accessories and cricket essentials', 'Equipment enquiries for players and teams']
+  const cricketCategories = ['Cricket bats and pads', 'Batting gloves and helmets', 'Protective gear and cricket shoes', 'Bags, balls and wicket-keeping equipment', 'Training accessories and cricket essentials', 'Equipment enquiries for players and teams']
   return (
     <>
       <PageBanner eyebrow="ONE+ SPORTS" title="Your Game. Your Gear. Your Advantage." copy="Quality sports equipment and accessories for players across the UAE and GCC." image={images.team} />
       <section className="carousel" aria-label="Promotional offers">
-        {slides.map((category, i) => <article key={category.name} className={slide === i ? 'slide active' : 'slide'} style={{ backgroundImage: `linear-gradient(90deg, rgba(6,20,43,.85), rgba(6,20,43,.05)), url(${category.image})` }} aria-hidden={slide !== i} inert={slide !== i}><div><p>ONE+ SPORTS · {category.name.toUpperCase()}</p><h2>{category.name}, ready for play.</h2><span>{category.text}</span><WhatsAppButton message={`Hello ONE+ SPORTS, I would like to enquire about ${category.name} equipment.`} label={`Ask about ${category.name}`} /></div></article>)}
+        {slides.map((category, i) => <article key={category.name} className={slide === i ? 'slide active' : 'slide'} style={{ backgroundImage: `linear-gradient(90deg, rgba(6,20,43,.88) 0%, rgba(6,20,43,.48) 56%, rgba(6,20,43,.12) 100%), linear-gradient(0deg, rgba(6,20,43,.32), transparent 42%), url(${category.image})`, backgroundPosition: category.imagePosition }} aria-hidden={slide !== i} inert={slide !== i}><div><p>ONE+ SPORTS · {category.name.toUpperCase()}</p><h2>{category.name}, ready for play.</h2><span>{category.text}</span><WhatsAppButton message={`Hello ONE+ SPORTS, I would like to enquire about ${category.name} equipment.`} label={`Ask about ${category.name}`} /></div></article>)}
         <button className="carousel-arrow prev" onClick={() => setSlide((slide - 1 + slides.length) % slides.length)} aria-label="Previous slide"><ChevronLeft /></button>
         <button className="carousel-arrow next" onClick={() => setSlide((slide + 1) % slides.length)} aria-label="Next slide"><ChevronRight /></button>
         <div className="dots">{slides.map((_, i) => <button key={i} onClick={() => setSlide(i)} className={slide === i ? 'active' : ''} aria-label={`Go to slide ${i + 1}`} />)}</div>
       </section>
-      <section className="section sports-range"><div className="sports-range-heading"><div><p className="eyebrow">SHOP BY SPORT</p><h2>One store. Every kind of game.</h2></div><p>Explore the sports you love and find equipment suited to your next match, training session or game day.</p></div><div className="sport-grid">{siteConfig.retailCategories.map((category, i) => <article className="sport-card" key={category.name}><div className="sport-photo"><img src={category.image} alt={category.imageAlt} loading="lazy" /><span>0{i + 1}</span></div><div className="sport-caption"><h3>{category.name}</h3><p>{category.text}</p></div></article>)}</div><div className="sports-range-cta"><WhatsAppButton message="Hello ONE+ SPORTS, I am interested in sports equipment. Could you help me find the right collection?" label="Enquire About Equipment" /></div></section>
-      <section className="section cricket"><p className="eyebrow">CRICKET EQUIPMENT · ONE+ SPORTS</p><h2>Cricket essentials.</h2><p className="cricket-copy">Browse key equipment categories for players, teams and cricket enthusiasts.</p><div className="category-grid">{categories.map((category, i) => <article key={category}><span>{String(i + 1).padStart(2, '0')}</span><h3>{category}</h3><ArrowRight size={18} /></article>)}</div></section>
-      <section className="brand-section"><p className="eyebrow">BRANDS THAT POWER YOUR GAME</p><h2>Leading sports names.</h2><p>Brand selection available through ONE+ SPORTS. Specific availability can be confirmed with our team.</p><div className="brand-placeholder"><span>CRICKET</span><span>BADMINTON</span><span>PADEL</span><span>TENNIS</span><span>SQUASH</span></div></section>
+      <section className="section sports-range">
+        <div className="sports-range-heading">
+          <div><p className="eyebrow">SHOP BY SPORT</p><h2>Every sport, its own collection.</h2></div>
+          <p>Explore dedicated collections for training, match day and everything in between.</p>
+        </div>
+        <div className="sport-sections">
+          {siteConfig.retailCategories.map((category, i) => (
+            <article className={`sport-section sport-section-${category.slug}`} id={`sport-${category.slug}`} key={category.slug}>
+              <div className="sport-section-copy">
+                <p className="eyebrow">0{i + 1} / ONE+ SPORTS</p>
+                <h3>{category.name}</h3>
+                <p>{category.text}</p>
+                {category.slug === 'cricket' && <ul className="sport-category-list">{cricketCategories.map((item) => <li key={item}>{item}</li>)}</ul>}
+              </div>
+              <div className={`sport-gallery sport-gallery-count-${category.gallery.length}`}>
+                {category.gallery.map((photo) => <figure className="sport-gallery-item" key={photo.src}><img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" /></figure>)}
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="sports-range-cta"><WhatsAppButton message="Hello ONE+ SPORTS, I am interested in sports equipment. Could you help me find the right collection?" label="Enquire About Equipment" /></div>
+      </section>
       <section className="shipping"><div><p className="eyebrow">UAE & GCC SHIPPING</p><h2>Serving sports enthusiasts across the region.</h2></div><div><p>Contact our team for UAE service, GCC shipping enquiries, product recommendations and bulk orders.</p><WhatsAppButton message="Hello ONE+ SPORTS, I would like to enquire about product availability and shipping." /></div></section>
       <section className="section store"><div><p className="eyebrow">VISIT OUR STORE</p><h2>ONE+ SPORTS<br />Ras Al Khaimah</h2><p>{siteConfig.storeAddress}</p><div className="button-row"><a className="button button-primary" href="https://maps.google.com/?q=Ras+Al+Khaimah+United+Arab+Emirates" target="_blank" rel="noreferrer">Get Directions</a><WhatsAppButton message="Hello ONE+ SPORTS, I would like to visit your store." /></div></div><div className="map-placeholder"><span>MAP</span><p>Ras Al Khaimah, UAE</p></div></section>
     </>
