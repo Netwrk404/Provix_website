@@ -210,8 +210,26 @@ function Home() {
       <section className="section intro">
         <div className="section-heading reveal"><p className="eyebrow">THE PROVIX GROUP</p><h2>Sport, developed and delivered with purpose.</h2><p className="intro-copy">A connected approach to coaching, athlete growth and sports equipment.</p></div>
         <div className="feature-grid">
-          <Link className="feature-card reveal" to="/academy"><img src={images.badminton} alt="Badminton coaching session" /><div><p>PROVIX ACADEMY</p><h3>Develop your game.</h3><span>Explore coaching <ArrowRight size={16} /></span></div></Link>
-          <Link className="feature-card retail-card reveal" to="/retail"><img src={images.cricket} alt="Cricket equipment and play" /><div><p>ONE+ SPORTS</p><h3>Find your advantage.</h3><span>Explore retail <ArrowRight size={16} /></span></div></Link>
+          <Link className="feature-card reveal" to="/academy">
+            <div className="feature-card-visual"><img src={images.badminton} alt="Badminton coaching session" /></div>
+            <div className="feature-card-copy">
+              <p className="feature-card-kicker">PROVIX ACADEMY</p>
+              <h3>Build your game.</h3>
+              <p className="feature-card-description">Structured badminton coaching for juniors and adults, from first session to competitive play.</p>
+              <span className="feature-card-link">Explore coaching <ArrowRight size={16} /></span>
+            </div>
+          </Link>
+          <Link className="feature-card retail-card reveal" to="/retail">
+            <div className="feature-card-visual feature-card-mosaic" aria-hidden="true">
+              {siteConfig.retailCategories.map((category) => <img key={category.name} src={category.image} alt="" />)}
+            </div>
+            <div className="feature-card-copy">
+              <p className="feature-card-kicker">ONE+ SPORTS</p>
+              <h3>Gear for every game.</h3>
+              <p className="feature-card-description">Explore equipment for badminton, padel, squash and cricket, all in one place.</p>
+              <span className="feature-card-link">Explore retail <ArrowRight size={16} /></span>
+            </div>
+          </Link>
         </div>
       </section>
       <section className="section expertise">
