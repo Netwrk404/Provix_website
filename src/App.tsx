@@ -113,7 +113,7 @@ function HomePoster() {
           </div>
           <div className="poster-caption"><MapPin size={14} /><span className="poster-location">UAE</span><span className="poster-divider" /><span className="poster-description">Sports for every stage</span></div>
           <div className="poster-number">{String(index + 1).padStart(2, '0')}<span> / {String(homeSlides.length).padStart(2, '0')}</span></div>
-          <img className="poster-watermark" src="/assets/provix-logo.jpg" alt="PROVIX official logo" />
+          <img className="poster-watermark" src="/assets/provix-logo.png" alt="PROVIX official logo" />
         </div>
       ))}
       <div className="poster-controls" aria-label="Poster carousel controls">
@@ -146,7 +146,7 @@ function Header() {
   return (
     <header className="header">
       <Link className="brand" to="/" aria-label="PROVIX home">
-        <img src="/assets/provix-logo.jpg" alt="PROVIX" />
+        <img src="/assets/provix-logo.png" alt="PROVIX" />
       </Link>
       <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
         {open ? <X /> : <Menu />}
@@ -167,7 +167,7 @@ function Footer() {
     <footer>
       <div className="footer-grid">
         <div>
-          <img className="footer-logo" src="/assets/provix-logo.jpg" alt="PROVIX" />
+          <img className="footer-logo" src="/assets/provix-logo.png" alt="PROVIX" />
           <p>Professional sports coaching and sports retail solutions across the UAE and GCC.</p>
         </div>
         <div><h4>Explore</h4><Link to="/about">About PROVIX</Link><Link to="/academy">Badminton Academy</Link><Link to="/retail">ONE+ SPORTS</Link></div>
