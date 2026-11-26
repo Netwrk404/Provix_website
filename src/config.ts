@@ -5,11 +5,11 @@ export const siteConfig = {
   storeAddress: 'Ras Al Khaimah, United Arab Emirates',
   socialUrl: '',
   academyPrograms: [
-    { name: 'Kids Coaching', text: 'Build coordination, movement and racket skills in a welcoming, structured environment.', image: '/assets/academy-kids.jpg', imageAlt: 'Young player practising badminton on court' },
-    { name: 'Intermediate Coaching', text: 'Sharpen footwork, shot accuracy and tactical awareness through focused practice.', image: '/assets/academy-intermediate.jpg', imageAlt: 'Badminton player preparing for a rally' },
-    { name: 'Advanced Coaching', text: 'Refine technique, match strategy and competitive performance.', image: '/assets/academy-advanced.jpg', imageAlt: 'Badminton athlete moving into a shot' },
-    { name: 'Adult Coaching', text: 'Enjoy beginner-friendly sessions and build skill, confidence and fitness through play.', image: '/assets/academy-adults.jpg', imageAlt: 'Adults playing badminton together outdoors' },
-    { name: 'One-on-One Coaching', text: 'Get individual attention and focused feedback aligned with your personal development goals.', image: '/assets/academy-personal.jpg', imageAlt: 'Badminton players discussing their game on court' },
+    { name: 'Kids Coaching', text: 'Build coordination, movement and racket skills in a welcoming, structured environment.', image: '/assets/CCF8CC94-EDE4-4AB4-99CF-8DB88C77E7D3.jpeg', imageAlt: 'Children practising badminton together indoors', imagePosition: 'center 50%' },
+    { name: 'Intermediate Coaching', text: 'Sharpen footwork, shot accuracy and tactical awareness through focused practice.', image: '/assets/retail-badminton.jpg', imageAlt: 'Badminton player preparing to return a shot indoors', imagePosition: 'center 34%' },
+    { name: 'Advanced Coaching', text: 'Refine technique, match strategy and competitive performance.', image: '/assets/academy-advanced.jpg', imageAlt: 'Badminton athlete moving into a shot', imagePosition: 'center 48%' },
+    { name: 'Adult Coaching', text: 'Enjoy beginner-friendly sessions and build skill, confidence and fitness through play.', image: '/assets/academy-adults.jpg', imageAlt: 'Adults playing badminton together outdoors', imagePosition: 'center 50%' },
+    { name: 'One-on-One Coaching', text: 'Get individual attention and focused feedback aligned with your personal development goals.', image: '/assets/academy-personal.jpg', imageAlt: 'Badminton players discussing their game on court', imagePosition: 'center 50%' },
   ],
   retailCategories: [
     {
@@ -20,13 +20,13 @@ export const siteConfig = {
       imageAlt: 'Badminton player practising at sunset',
       imagePosition: 'center 55%',
       gallery: [
-        { src: '/assets/B6FB2CCF-FD40-409F-938B-8827E848766E.jpeg', alt: 'Badminton player practising at sunset' },
-        { src: '/assets/retail-badminton.jpg', alt: 'Badminton player holding a racket on court' },
-        { src: '/assets/3B57DDBF-8ADA-4C02-9290-F54C8C231DCE_4_5005_c.jpeg', alt: 'Shuttlecock and racket resting on a badminton court' },
-        { src: '/assets/B492CA96-605B-4872-93C6-6AE80D7BA80E.jpeg', alt: 'Player holding a shuttlecock above a racket before a serve' },
-        { src: '/assets/792A80BA-126C-4DE1-8034-D76CCC0A7B58.jpeg', alt: 'Young player holding a badminton racket outdoors' },
-        { src: '/assets/CCF8CC94-EDE4-4AB4-99CF-8DB88C77E7D3.jpeg', alt: 'Children practising badminton together indoors' },
-        { src: '/assets/EF08DC45-5EAB-4761-998D-C38EF435E312.jpeg', alt: 'Indoor court prepared for badminton' },
+        { src: '/assets/B6FB2CCF-FD40-409F-938B-8827E848766E.jpeg', alt: 'Badminton player practising at sunset', objectPosition: 'center 55%' },
+        { src: '/assets/retail-badminton.jpg', alt: 'Badminton player holding a racket on court', objectPosition: 'center 28%' },
+        { src: '/assets/3B57DDBF-8ADA-4C02-9290-F54C8C231DCE_4_5005_c.jpeg', alt: 'Shuttlecock and racket resting on a badminton court', objectPosition: 'center 50%' },
+        { src: '/assets/B492CA96-605B-4872-93C6-6AE80D7BA80E.jpeg', alt: 'Player holding a shuttlecock above a racket before a serve', objectPosition: 'center 48%' },
+        { src: '/assets/792A80BA-126C-4DE1-8034-D76CCC0A7B58.jpeg', alt: 'Young player holding a badminton racket outdoors', objectPosition: 'center 42%' },
+        { src: '/assets/CCF8CC94-EDE4-4AB4-99CF-8DB88C77E7D3.jpeg', alt: 'Children practising badminton together indoors', objectPosition: 'center 50%' },
+        { src: '/assets/EF08DC45-5EAB-4761-998D-C38EF435E312.jpeg', alt: 'Indoor court prepared for badminton', objectPosition: 'center 50%' },
       ],
     },
     {
@@ -37,8 +37,8 @@ export const siteConfig = {
       imageAlt: 'Young players enjoying a game of padel',
       imagePosition: 'center 42%',
       gallery: [
-        { src: '/assets/E905E8C7-4D2B-4C8B-B008-15FD2A94A597.jpeg', alt: 'Young players enjoying a game of padel' },
-        { src: '/assets/retail-padel.jpg', alt: 'Athlete playing padel on an indoor court' },
+        { src: '/assets/E905E8C7-4D2B-4C8B-B008-15FD2A94A597.jpeg', alt: 'Young players enjoying a game of padel', objectPosition: 'center 48%' },
+        { src: '/assets/retail-padel.jpg', alt: 'Athlete playing padel on an indoor court', objectPosition: 'center 34%' },
       ],
     },
     {
@@ -49,9 +49,9 @@ export const siteConfig = {
       imageAlt: 'Players competing on a squash court',
       imagePosition: 'center 68%',
       gallery: [
-        { src: '/assets/D52CC77F-92B7-4200-881A-8201B205EA50.jpeg', alt: 'Players competing on a squash court' },
-        { src: '/assets/644F3C12-66DF-409D-8211-2594322F8084.jpeg', alt: 'Squash player reaching for a shot' },
-        { src: '/assets/retail-squash.jpg', alt: 'Squash player preparing to serve' },
+        { src: '/assets/D52CC77F-92B7-4200-881A-8201B205EA50.jpeg', alt: 'Players competing on a squash court', objectPosition: 'center 50%' },
+        { src: '/assets/644F3C12-66DF-409D-8211-2594322F8084.jpeg', alt: 'Squash player reaching for a shot', objectPosition: 'center 38%' },
+        { src: '/assets/retail-squash.jpg', alt: 'Squash player preparing to serve', objectPosition: '18% 50%' },
       ],
     },
     {
@@ -62,11 +62,11 @@ export const siteConfig = {
       imageAlt: 'Cricket batter emerging through orange smoke',
       imagePosition: 'center 58%',
       gallery: [
-        { src: '/assets/61A69F06-F2F7-4F33-85E5-D89CA6B1D360.jpeg', alt: 'Cricket batter emerging through orange smoke' },
-        { src: '/assets/3B6327D1-A2F1-4D8A-9D1B-F032C3C072DD.jpeg', alt: 'Cricket bat, helmet, gloves and protective pads' },
-        { src: '/assets/D9939770-40CB-4094-A785-A829552E6071.jpeg', alt: 'Cricket bat and protective pads ready for play' },
-        { src: '/assets/E09B34BD-3A6D-4F48-8F3A-706F024EBA8A.jpeg', alt: 'Cricket kit arranged in a team locker room' },
-        { src: '/assets/retail-cricket.jpg', alt: 'Cricket ball resting in grass' },
+        { src: '/assets/61A69F06-F2F7-4F33-85E5-D89CA6B1D360.jpeg', alt: 'Cricket batter emerging through orange smoke', objectPosition: 'center 68%' },
+        { src: '/assets/3B6327D1-A2F1-4D8A-9D1B-F032C3C072DD.jpeg', alt: 'Cricket bat, helmet, gloves and protective pads', objectPosition: 'center 50%', contain: true },
+        { src: '/assets/D9939770-40CB-4094-A785-A829552E6071.jpeg', alt: 'Cricket bat and protective pads ready for play', objectPosition: 'center 50%', contain: true },
+        { src: '/assets/E09B34BD-3A6D-4F48-8F3A-706F024EBA8A.jpeg', alt: 'Cricket kit arranged in a team locker room', objectPosition: 'center 52%' },
+        { src: '/assets/retail-cricket.jpg', alt: 'Cricket ball resting in grass', objectPosition: 'center 52%' },
       ],
     },
     {
@@ -77,7 +77,7 @@ export const siteConfig = {
       imageAlt: 'Basketball players competing during a game',
       imagePosition: 'center 42%',
       gallery: [
-        { src: '/assets/7B016362-825A-40A4-A4E9-20592F3F3490_1_105_c.jpeg', alt: 'Basketball players competing during a game' },
+        { src: '/assets/7B016362-825A-40A4-A4E9-20592F3F3490_1_105_c.jpeg', alt: 'Basketball players competing during a game', objectPosition: 'center 42%' },
       ],
     },
     {
@@ -88,10 +88,10 @@ export const siteConfig = {
       imageAlt: 'Players rallying on an outdoor pickleball court',
       imagePosition: 'center 52%',
       gallery: [
-        { src: '/assets/7C4E4B1B-2E2A-4F2A-B1E3-F4F2AB0B2A57.jpeg', alt: 'Players rallying on an outdoor pickleball court' },
-        { src: '/assets/008AAFF4-DD30-4037-8C90-4D7CD602A8EE.jpeg', alt: 'Pickleball player reaching for a shot' },
-        { src: '/assets/71C63F14-2928-4957-82DA-D210BBF8175A.jpeg', alt: 'Pickleball players competing at the net' },
-        { src: '/assets/C2884DFB-05C5-42AF-9152-E6811C49E6CA.jpeg', alt: 'Pickleball paddles and balls on court' },
+        { src: '/assets/7C4E4B1B-2E2A-4F2A-B1E3-F4F2AB0B2A57.jpeg', alt: 'Players rallying on an outdoor pickleball court', objectPosition: 'center 52%' },
+        { src: '/assets/008AAFF4-DD30-4037-8C90-4D7CD602A8EE.jpeg', alt: 'Pickleball player reaching for a shot', objectPosition: 'center 40%' },
+        { src: '/assets/71C63F14-2928-4957-82DA-D210BBF8175A.jpeg', alt: 'Pickleball players competing at the net', objectPosition: 'center 48%' },
+        { src: '/assets/C2884DFB-05C5-42AF-9152-E6811C49E6CA.jpeg', alt: 'Pickleball paddles and balls on court', objectPosition: 'center 50%', contain: true },
       ],
     },
   ],

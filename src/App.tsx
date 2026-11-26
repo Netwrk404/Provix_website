@@ -258,7 +258,7 @@ function Home() {
           </Link>
           <Link className="feature-card retail-card reveal" to="/retail">
             <div className="feature-card-visual feature-card-mosaic" aria-hidden="true">
-              {siteConfig.retailCategories.map((category) => <img key={category.name} src={category.image} alt="" />)}
+              {siteConfig.retailCategories.map((category) => <img key={category.name} src={category.image} alt="" style={{ objectPosition: category.imagePosition }} />)}
             </div>
             <div className="feature-card-copy">
               <p className="feature-card-kicker">ONE+ SPORTS</p>
@@ -337,7 +337,7 @@ function Academy() {
       <section className="programmes">
         {siteConfig.academyPrograms.map((program, i) => (
           <article className={i === 4 ? 'personal' : ''} key={program.name}>
-            <div className="program-image"><img src={program.image} alt={program.imageAlt} loading="lazy" /><span>0{i + 1}</span></div>
+            <div className="program-image"><img src={program.image} alt={program.imageAlt} loading="lazy" style={{ objectPosition: program.imagePosition }} /><span>0{i + 1}</span></div>
             <div className="program-copy"><p className="eyebrow">BADMINTON PROGRAMME</p><h3>{program.name}</h3><p>{program.text}</p></div>
           </article>
         ))}
@@ -381,7 +381,7 @@ function Retail() {
                 {category.slug === 'cricket' && <ul className="sport-category-list">{cricketCategories.map((item) => <li key={item}>{item}</li>)}</ul>}
               </div>
               <div className={`sport-gallery sport-gallery-count-${category.gallery.length}`}>
-                {category.gallery.map((photo) => <figure className="sport-gallery-item" key={photo.src}><img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" /></figure>)}
+                {category.gallery.map((photo) => <figure className={`sport-gallery-item${photo.contain ? ' sport-gallery-item-contain' : ''}`} key={photo.src}><img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" style={{ objectPosition: photo.objectPosition }} /></figure>)}
               </div>
             </article>
           ))}
