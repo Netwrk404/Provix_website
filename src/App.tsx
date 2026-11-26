@@ -215,9 +215,31 @@ function Home() {
         </div>
       </section>
       <section className="section expertise">
-        <p className="eyebrow">OUR EXPERTISE</p><h2 className="expertise-heading">One sporting vision.<br />Different ways to move forward.</h2>
-        <div className="expertise-grid">
-          {['Professional Badminton Coaching', 'Kids Sports Development', 'Adult Coaching', 'Individual Training', 'Sports Equipment', 'UAE & GCC Retail'].map((item, i) => <article className="reveal" key={item}><span>0{i + 1}</span><h3>{item}</h3></article>)}
+        <div className="expertise-layout">
+          <div className="expertise-intro">
+            <p className="eyebrow">OUR EXPERTISE</p>
+            <div>
+              <h2>From first session to next-level performance.</h2>
+              <p>One connected approach to developing players and helping them find the right gear for every game.</p>
+            </div>
+            <div className="expertise-brands"><span>PROVIX ACADEMY</span><span>ONE+ SPORTS</span></div>
+          </div>
+          <div className="expertise-grid">
+            {[
+              ['Professional Badminton Coaching', 'Build technique, movement and match confidence with structured coaching.'],
+              ['Kids Sports Development', 'Age-appropriate sessions that grow coordination, focus and a love of sport.'],
+              ['Adult Coaching', 'Flexible training shaped around your goals, pace and experience.'],
+              ['Individual Training', 'Focused one-to-one sessions tailored to your game and progress.'],
+              ['Sports Equipment', 'Find quality gear and accessories for practice, competition and beyond.'],
+              ['UAE & GCC Retail', 'Supporting players and teams across the UAE and the wider region.'],
+            ].map(([title, description], i) => (
+              <article className="expertise-card reveal" key={title}>
+                <span className="expertise-number">0{i + 1}</span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
       <section className="section partner">
