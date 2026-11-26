@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowRight, ChevronLeft, ChevronRight, Menu, MessageCircle, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, MapPin, Menu, MessageCircle, Pause, Play, X } from 'lucide-react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { siteConfig } from './config'
 import './App.css'
@@ -18,7 +18,119 @@ function PageEffects() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [pathname])
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12 })
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [pathname])
   return null
+}
+
+const homeSlides = [
+  {
+    label: 'PROVIX BADMINTON ACADEMY',
+    title: <>Find your<br /><em>next level.</em></>,
+    copy: 'Thoughtful coaching for every stage of your badminton journey.',
+    image: images.badminton,
+    alt: 'Badminton court ready for training',
+    primary: 'Explore the Academy',
+    route: '/academy',
+    secondary: 'Meet PROVIX',
+    secondaryRoute: '/about',
+  },
+  {
+    label: 'ONE+ SPORTS · THE RETAIL PARTNER',
+    title: <>Gear up for<br /><em>what moves you.</em></>,
+    copy: 'Discover sports equipment and essentials for your game.',
+    image: images.cricket,
+    alt: 'Cricket match in progress',
+    primary: 'Explore ONE+ SPORTS',
+    route: '/retail',
+    secondary: 'Browse sports',
+    secondaryRoute: '/retail',
+  },
+  {
+    label: 'SPORT · DEVELOPMENT · EXCELLENCE',
+    title: <>Driven by sport.<br /><em>Built for more.</em></>,
+    copy: 'A UAE sports company bringing coaching and retail together.',
+    image: images.team,
+    alt: 'Athletes training outdoors',
+    primary: 'Discover PROVIX',
+    route: '/about',
+    secondary: 'Talk to our team',
+    secondaryRoute: '/contact',
+  },
+]
+
+function HomePoster() {
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    if (paused || hovered || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % homeSlides.length), 6500)
+    return () => window.clearInterval(timer)
+  }, [hovered, paused])
+
+  function chooseSlide(index: number) {
+    setActive((index + homeSlides.length) % homeSlides.length)
+    setPaused(true)
+  }
+
+  return (
+    <section
+      className="home-poster"
+      aria-label="Featured PROVIX highlights"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setPaused(true)}
+    >
+      {homeSlides.map((slide, index) => (
+        <div
+          key={slide.label}
+          className={`poster-slide${active === index ? ' active' : ''}`}
+          style={{ backgroundImage: `linear-gradient(90deg, rgba(5,18,42,.96) 0%, rgba(5,18,42,.76) 44%, rgba(5,18,42,.16) 100%), url(${slide.image})` }}
+          aria-hidden={active !== index}
+          inert={active !== index}
+        >
+          <div className="poster-content">
+            <div className="poster-kicker"><span className="live-dot" />{slide.label}</div>
+            <h1>{slide.title}</h1>
+            <p>{slide.copy}</p>
+            <div className="button-row">
+              <Link className="button button-primary" to={slide.route}>{slide.primary}<ArrowRight size={18} /></Link>
+              <Link className="button button-glass" to={slide.secondaryRoute}>{slide.secondary}<ArrowUpRight size={17} /></Link>
+            </div>
+          </div>
+          <div className="poster-caption"><MapPin size={14} /><span className="poster-location">UAE</span><span className="poster-divider" /><span className="poster-description">Sports for every stage</span></div>
+          <div className="poster-number">{String(index + 1).padStart(2, '0')}<span> / {String(homeSlides.length).padStart(2, '0')}</span></div>
+          <img className="poster-watermark" src="/assets/provix-logo.jpg" alt="PROVIX official logo" />
+        </div>
+      ))}
+      <div className="poster-controls" aria-label="Poster carousel controls">
+        <button className="poster-arrow" onClick={() => chooseSlide(active - 1)} aria-label="Previous featured poster"><ChevronLeft size={19} /></button>
+        <div className="poster-pagination">
+          {homeSlides.map((slide, index) => (
+            <button key={slide.label} className={index === active ? 'current' : ''} onClick={() => chooseSlide(index)} aria-label={`Show poster ${index + 1}: ${slide.label}`} aria-current={index === active ? 'true' : undefined}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+            </button>
+          ))}
+        </div>
+        <button className="poster-arrow" onClick={() => chooseSlide(active + 1)} aria-label="Next featured poster"><ChevronRight size={19} /></button>
+        <button className="poster-pause" onClick={() => setPaused(!paused)} aria-label={paused ? 'Play automatic posters' : 'Pause automatic posters'}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>
+      </div>
+      <div className={`poster-progress${paused || hovered ? ' stopped' : ''}`} key={`${active}-${paused}-${hovered}`} />
+    </section>
+  )
 }
 
 function Header() {
@@ -66,6 +178,24 @@ function Footer() {
   )
 }
 
+function FloatingContact() {
+  const { pathname } = useLocation()
+  const [visible, setVisible] = useState(pathname !== '/')
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      const poster = document.querySelector('.home-poster')
+      setVisible(pathname !== '/' || !poster || window.scrollY > poster.getBoundingClientRect().height)
+    }
+    updateVisibility()
+    window.addEventListener('scroll', updateVisibility, { passive: true })
+    return () => window.removeEventListener('scroll', updateVisibility)
+  }, [pathname])
+
+  if (!visible) return null
+  return <WhatsAppButton className="floating-contact" message="Hello PROVIX, I would like to know more about your sports programmes and services." label="Chat with our team" />
+}
+
 function WhatsAppButton({ message, label = 'WhatsApp Us', className = '' }: { message: string; label?: string; className?: string }) {
   const href = siteConfig.whatsapp
     ? `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}`
@@ -76,32 +206,25 @@ function WhatsAppButton({ message, label = 'WhatsApp Us', className = '' }: { me
 function Home() {
   return (
     <>
-      <section className="hero home-hero">
-        <div className="hero-content">
-          <p className="eyebrow">PROVIX · UNITED ARAB EMIRATES</p>
-          <h1>Driven by Sport.<br /><em>Built for Excellence.</em></h1>
-          <p className="hero-copy">Professional sports coaching, athlete development and sports retail solutions creating opportunities across the UAE and GCC.</p>
-          <div className="button-row"><Link className="button button-primary" to="/academy">Explore Our Academy <ArrowRight size={18} /></Link><Link className="button button-light" to="/retail">Discover ONE+ SPORTS</Link></div>
-        </div>
-      </section>
+      <HomePoster />
       <section className="section intro">
-        <div className="section-heading"><p className="eyebrow">THE PROVIX GROUP</p><h2>Sport, developed and delivered with purpose.</h2></div>
+        <div className="section-heading reveal"><p className="eyebrow">THE PROVIX GROUP</p><h2>Sport, developed and delivered with purpose.</h2><p className="intro-copy">A connected approach to coaching, athlete growth and sports equipment.</p></div>
         <div className="feature-grid">
-          <Link className="feature-card" to="/academy"><img src={images.badminton} alt="Badminton coaching session" /><div><p>PROVIX ACADEMY</p><h3>Develop your game.</h3><span>Explore coaching <ArrowRight size={16} /></span></div></Link>
-          <Link className="feature-card retail-card" to="/retail"><img src={images.cricket} alt="Cricket equipment and play" /><div><p>ONE+ SPORTS</p><h3>Find your advantage.</h3><span>Explore retail <ArrowRight size={16} /></span></div></Link>
+          <Link className="feature-card reveal" to="/academy"><img src={images.badminton} alt="Badminton coaching session" /><div><p>PROVIX ACADEMY</p><h3>Develop your game.</h3><span>Explore coaching <ArrowRight size={16} /></span></div></Link>
+          <Link className="feature-card retail-card reveal" to="/retail"><img src={images.cricket} alt="Cricket equipment and play" /><div><p>ONE+ SPORTS</p><h3>Find your advantage.</h3><span>Explore retail <ArrowRight size={16} /></span></div></Link>
         </div>
       </section>
       <section className="section expertise">
-        <p className="eyebrow">OUR EXPERTISE</p>
+        <p className="eyebrow">OUR EXPERTISE</p><h2 className="expertise-heading">One sporting vision.<br />Different ways to move forward.</h2>
         <div className="expertise-grid">
-          {['Professional Badminton Coaching', 'Kids Sports Development', 'Adult Coaching', 'Individual Training', 'Sports Equipment', 'UAE & GCC Retail'].map((item, i) => <article key={item}><span>0{i + 1}</span><h3>{item}</h3></article>)}
+          {['Professional Badminton Coaching', 'Kids Sports Development', 'Adult Coaching', 'Individual Training', 'Sports Equipment', 'UAE & GCC Retail'].map((item, i) => <article className="reveal" key={item}><span>0{i + 1}</span><h3>{item}</h3></article>)}
         </div>
       </section>
       <section className="section partner">
         <div className="partner-logo"><img src="/assets/one-sports-logo.jpg" alt="ONE+ SPORTS" /></div>
         <div><p className="eyebrow">PROVIX RETAIL PARTNER</p><h2>Everything sport.<br />All in one place.</h2><p>Explore a wide range of sports equipment and accessories through ONE+ SPORTS.</p><Link className="text-link" to="/retail">Explore ONE+ SPORTS <ArrowRight size={18} /></Link></div>
       </section>
-      <section className="final-cta"><p className="eyebrow">START YOUR JOURNEY</p><h2>Ready to elevate your game?</h2><div className="button-row"><Link className="button button-primary" to="/academy">Join Our Academy</Link><Link className="button button-outline" to="/contact">Contact Our Team</Link></div></section>
+      <section className="final-cta"><p className="eyebrow">START YOUR JOURNEY</p><h2>Ready to elevate your game?</h2><p>Whether you’re looking to train, equip your team or learn more about PROVIX, start a conversation with us.</p><div className="button-row"><Link className="button button-primary" to="/academy">Join Our Academy <ArrowRight size={18} /></Link><Link className="button button-outline" to="/contact">Contact Our Team</Link></div></section>
     </>
   )
 }
@@ -226,6 +349,7 @@ export default function App() {
     <>
       <PageEffects /><Header />
       <main><Routes><Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="/academy" element={<Academy />} /><Route path="/retail" element={<Retail />} /><Route path="/contact" element={<Contact />} /><Route path="*" element={<NotFound />} /></Routes></main>
+      <FloatingContact />
       <Footer />
     </>
   )
